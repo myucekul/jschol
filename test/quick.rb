@@ -129,7 +129,13 @@ class TestQuick < Test::Unit::TestCase
   end
 
   def test_author_search
-    html = fetch("http://localhost:#{PUMA_PORT}/search?q=author%3A%22Atkinson%2C%20Richard%22")
-    assert_match(/Letter to the Regents about an article in the March 2000 issue/, html)
+    html = fetch("http://localhost:#{PUMA_PORT}/search?q=author%3A%22Adelman%2C%20Irma%22")
+    assert_match(/Food Security/, html)
   end
+
+  def test_author_search_pagination
+    html = fetch("http://localhost:#{PUMA_PORT}/search?q=author%3A%22Brozen%2C%20Madeline%22")
+    assert_match(/input type=\"hidden\" name=\"q\" value=\"author:&quot;Brozen, Madeline&quot;\"/, html)
+  end
+
 end
